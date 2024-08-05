@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% block main %}
+  <div class="container">
+    <h1 class="mt-5">Capture</h1>
+    <form id="capture-form" method="post" action="{{ url_for('capture.captures') }}">
+      {{ form.csrf_token }}
+      {{ form.link(class='form-control mb-3', placeholder='URL') }}
+      <div class="text-center">
+        <button class="btn btn-outline-success" type="submit">Capture</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    document.querySelector('#capture-form').addEventListener('submit', function () {
+      this.querySelector('button').disabled = true
+      this.querySelector('button').innerHTML = 'Capturing...'
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "_base.html" %}
+
+{% block main %}
+<div class="container mt-4">
+    <h1 class="text-center"><strong>Smart Summary</strong></h1>
+    <h2 class="text-center"><strong>Customization</strong></h2>
+
+    <form method="post" action="{{ url_for('summary.smart_summary') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-5">
+            <label class="form-label h4"><strong>Length</strong></label>
+            <div>
+                {% for subfield in form.length %}
+                    <div class="form-check form-check-inline">
+                        {{ subfield(class="form-check-input", id=subfield.id) }}
+                        <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <label class="form-label h4"><strong>Style</strong></label>
+            <div>
+                {% for subfield in form.style %}
+                    <div class="form-check form-check-inline">
+                        {{ subfield(class="form-check-input", id=subfield.id) }}
+                        <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <label class="form-label h4"><strong>Time Range</strong></label>
+            <div>
+                {{ form.time_range(class="form-select", id="timeRange") }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="userInput" class="form-label h3"><strong>More Instruction</strong></label>
+            <p class="form-text">Ex: If you want to generate summary that is cheerful and happy, just type cheerful and happy.</p>
+            {{ form.user_input(class="form-control", id="userInput", placeholder="Type here...") }}
+        </div>
+
+        <div class="d-flex justify-content-end">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+    {% if user_input %}
+    <div class="mt-4">
+        <h3>Your Input:</h3>
+        <!-- <p>{{ user_input }}</p>
+        <h3>Length:</h3>
+        <p>{{ length }}</p>
+        <h3>Style:</h3>
+        <p>{{ style }}</p> -->
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

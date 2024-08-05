@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block main %}
+  <div class="container">
+    <h1 class="mt-5">Capture</h1>
+    <form method="delete" action="{{ url_for('capture.captures_show', id=capture['id']) }}">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+    <ul>
+      <li>{{ capture['id'] }}</li>
+      <li>{{ capture['link'] }}</li>
+    </ul>
+    <div id="content"></div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      document.getElementById('content').innerHTML = marked.parse(`{{ clean_content|safe }}`)
+    </script>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    const deleteForm = document.querySelector('form[method=delete]')
+    deleteForm.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      const response = await fetch(deleteForm.action, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (response.ok) {
+        window.location.href = "{{ url_for('capture.captures') }}"
+      } else {
+        alert('Failed to delete')
+      }
+    })
+  </script>
+{% endblock %}

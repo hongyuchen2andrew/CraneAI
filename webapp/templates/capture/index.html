@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+
+{% block style %}
+  <style>
+    .link-text {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="container">
+    <div class="d-flex flex-column align-items-center">
+      {% for capture in captures %}
+        <div class="card mb-3 w-100" style="max-width: 540px;">
+          <div class="row g-0" style="height: 130px;">
+            <div class="col-3">
+              {% if capture.get_meta()['image'] %}
+                <img src="{{ capture.get_meta()['image'] }}" class="object-fit-cover rounded-start" style="width: 100%; height: 130px;" alt="..." />
+              {% else %}
+                <img src="https://via.placeholder.com/150" class="img-fluid rounded-start" style="max-height: 130px" alt="..." />
+              {% endif %}
+            </div>
+            <div class="col-9">
+              <div class="card-body">
+                <h5 class="card-title link-text"><a href="{{ url_for('capture.captures_show', id=capture.id) }}">{{ capture.title }}</a></h5>
+                <p class="card-text">
+                  <small class="text-body-secondary">Captured at {{ capture.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

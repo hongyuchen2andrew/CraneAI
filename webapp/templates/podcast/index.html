@@ -1,0 +1,59 @@
+{% extends '_base.html' %}
+
+{% block style %}
+  <link href="
+https://cdn.jsdelivr.net/npm/shikwasa@2.2.1/dist/style.min.css
+" rel="stylesheet" />
+  <style>
+    .link-text {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    #player > .shk {
+      --color-bar-played: linear-gradient(90deg, #4158d0, #c850c0, #ffcc70);
+      --color-bar-loaded: repeating-linear-gradient(45deg, #797979, grey 10px, #969696 0, #969696 20px);
+      --color-primary: #ffcc70;
+      --color-theme: #333;
+      --color-button: #fff;
+      --color-handle: #ffcc70;
+      --color-text: #fff;
+      --color-title: #fff;
+      --color-artist: #888;
+      --color-secondary: #eee;
+      --shadow-body: 0px 0px 9px -3px rgba(0, 0, 0, 0.8);
+      --shadow-handle: 0px 0px 9px -3px rgba(0, 0, 0, 0.8);
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="container">
+    <h1>Podcastify</h1>
+    <div id="player">
+      <!-- this is where the player will be injected -->
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="
+https://cdn.jsdelivr.net/npm/shikwasa@2.2.1/dist/shikwasa.min.js
+"></script>
+
+  <script>
+    const player = new window.Shikwasa.Player({
+      container: () => document.querySelector('#player'),
+      audio: {
+        title: `Understanding Atomic Habits, Caffeine's Impact on Sleep, and the Science of Sleep`,
+        artist: 'Crane AI',
+        cover: "{{ url_for('static', filename='podcast/cover.png') }}",
+        src: "{{ url_for('static', filename='podcast/output.wav') }}"
+      }
+      //themeColor: '#00869B',
+      //theme: 'dark'
+    })
+  </script>
+{% endblock %}

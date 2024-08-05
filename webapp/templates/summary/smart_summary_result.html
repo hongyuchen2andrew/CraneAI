@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+
+{% block style %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+{% block main %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div id="flash-messages" class="mt-4">
+            {% for message in messages %}
+                <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<div class="container mt-4">
+    <h1 class="text-center" style="font-size: 64px;">Summary Result</h1>
+    <div class="mt-5">
+        <h2 style="font-size: 40px;">Summary Title</h2>
+        <h4 style="font-size: 20px;">Author: Crane.ai</h4>
+<!--         <h4 style="font-size: 20px;">GeneratedTime</h4> -->
+        <!-- <img src="data:image/png;base64,{{ image_base64 }}" alt="Plot" style="width: 100%; max-width: 600px;"> -->
+        <p style="font-size: 16px;">
+            {{ summary | safe }}
+        </p>
+    </div>
+<!--     <div class="mt-4">
+        <h4 style="font-size: 28px;">Source</h4>
+        {% for link in links %}
+            <p style="font-size: 14px;">{{ loop.index }}. {{ link }}</p>
+        {% endfor %}
+        <!-- <p style="font-size: 14px;">1. link</p>
+        <p style="font-size: 14px;">2. link</p> -->
+    </div> -->
+    <div class="mt-4 text-center">
+        <a href="{{ url_for('summary.smart_summary') }}" class="btn btn-primary">Re-Generate Summary</a>
+    </div>
+</div>
+<script>
+    // 设置定时器在3秒后隐藏flash消息
+    setTimeout(function() {
+        var flashMessages = document.getElementById('flash-messages');
+        if (flashMessages) {
+            flashMessages.style.display = 'none';
+        }
+    }, 3000);
+</script>
+
+{% endblock %}

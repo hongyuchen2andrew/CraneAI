@@ -1,0 +1,130 @@
+<!-- templates/askme.html -->
+{% extends "_chat_sidebar.html" %}
+
+{% block content %}
+<div class="content-child container-fluid mt-2 pb-60" id="content-child">
+    <h1 class="text-center">Ask Me</h1>
+    <div class="chat-container" id="chat-container container">
+        <!-- User and Assistant Messages will be displayed here -->
+        {% for message in messages %}
+        <div class="chat-message {{ message.sender }}">
+            {% if message.sender == 'user' %}
+            <div class="user-message-container">
+                <div class="user-message">
+                    {{ message.text }}
+                </div>
+            </div>
+            {% else %}
+            <div class="assistant-message">
+                <div class="assistant-text message-content"> 🪶 
+                    {{ message.text | safe }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Input Field Fixed at the Bottom -->
+<div class="input-container container-fluid fixed-bottom">
+    <form id="messageArea" class="input-group" method="POST">  
+        <input type="text" id="text" name="msg" placeholder="Talk to GinoChat" autocomplete="off" class="form-control type_msg" required/>
+        <div class="input-group-append">
+            <button type="submit" id="send" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // console.log('JavaScript code is running');
+    
+    // var socket = io();
+    
+    // $('form#messageArea').submit(function(e) {
+    //     e.preventDefault(); // Prevent the default form submission behavior
+    //     var message = $('#text').val(); // Get the user input
+    //     console.log('Sending message:', message);
+    //     socket.emit('send_message', {msg: message}); // Send the message to the server
+    //     $('#text').val(''); // Clear the input field for the next message
+    //     return false;
+    // });
+    
+    // socket.on('receive_message', function(data) {
+    //     console.log('Received message:', data);
+    //     var messages = data.messages;
+    //     var html = '';
+    //     messages.forEach(function(message) {
+    //         if (message.sender === 'user') {
+    //             html += '<div class="chat-message">' +
+    //                     '<div class="user-message-container">' +
+    //                         '<div class="user-message">' + message.text + '</div>' +
+    //                     '</div>' +
+    //                 '</div>';
+    //         } else {
+    //             html += '<div class="chat-message assistant-message">' +
+    //                         '<div class="message-content">' + 🪶 message.text + '</div>' +
+    //                     '</div>';
+    //         }
+    //     });
+    //     $('#chat-container').append(html);
+    //     $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+    // });
+
+    // socket.on('connect_error', function(error) {
+    //     console.error('WebSocket connection error:', error);
+    // });
+    
+    // socket.on('error', function(error) {
+    //     console.error('WebSocket error:', error);
+    // });
+
+    // $(document).ready(function() {
+
+
+            
+    //     });
+
+    // $(document).ready(function() {
+    //     function adjustHeights() {
+    //         const windowHeight = $(window).height();
+    //         const newContentHeight = windowHeight - 50;
+    //         console.log(`Window Height: ${windowHeight}, New Content Height: ${newContentHeight}`); 
+    //         contentChild.css('height', newContentHeight + 'px');
+    //     }
+    // });
+
+    
+</script>
+
+
+<!-- <script>
+$(document).ready(function() {
+
+        // AJAX POST request to the server
+        $.ajax({
+            url: "/process_chat",  // URL where the data will be posted
+            type: "POST",  // Method type
+            data: {
+                msg: userText
+            },  // Data sent to the server
+            success: function(data) {
+                // On success, append the response to the chat container
+                appendMessage(data.response, 'assistant');
+            },
+            error: function(xhr, status, error) {
+                // Handle errors here, such as by appending a message indicating failure
+                appendMessage("Failed to get response.", 'assistant');
+            }
+        });
+    });
+});
+
+function appendMessage(message, sender) {
+    var className = sender === 'user' ? 'user-message' : 'assistant-message';
+    var html = '<div class="' + className + '">' + message + '</div>';
+    $('#chat-container').append(html);
+}
+</script> -->
+
+{% endblock %}

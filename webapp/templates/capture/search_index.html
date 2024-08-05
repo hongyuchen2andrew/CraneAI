@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+
+{% block style %}
+  <style>
+    .link-text {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="container">
+    <form action="{{ url_for('capture.captures_search') }}" class="mb-3">
+      <div class="d-flex mb-3">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}" />
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </div>
+      <select class="form-select form-select-sm" aria-label="Default select example" name="dt">
+        <option selected>Any time</option>
+        <option value="1">Today</option>
+        <option value="2">Yesterday</option>
+        <option value="3">Past 7 days</option>
+      </select>
+    </form>
+    <h1>Search results for: {{ q }}</h1>
+    {% for capture in captures %}
+      <h3><a class="link-text" href="{{ capture.link }}">{{ capture.title }}</a></h3>
+      {% for snip in snip_texts[capture.id] %}
+        <p class="link-text">{{ snip|safe }}</p>
+      {% endfor %}
+      <hr />
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img style="width: 40px; height: 40px" src="{{ url_for('static', filename='imgs/logo.png') }}" alt="logo" /> Crane</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('capture.captures_new') }}">Capture</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('capture.captures') }}">Mind Base</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('summary.smart_summary') }}">Smart Summary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('podcast.index') }}">Podcastify</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('capture.captures') }}">Ask Me</a>
+        </li>
+        <!--                                                               <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#">Action</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </li>   -->
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li> -->
+      </ul>
+      <form class="d-flex me-2" role="search" method="get" action="{{ url_for('capture.captures_search') }}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" />
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+      {% if current_user.is_authenticated %}
+        <div class="nav-item dropdown">
+          <span class="text-light avatar mt-2 mt-lg-0" href="#" role="button" id="avatar" data-bs-toggle="dropdown" aria-expanded="false">J</span>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="{{ url_for('security.logout') }}">Logout</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </div>
+      {% else %}
+        <a class="btn btn-primary" href="{{ url_for('security.login') }}">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
