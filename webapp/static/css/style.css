@@ -1,0 +1,329 @@
+/* style.css for _base.html */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+::after,
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+    background-color: #fafbfe;
+}
+
+.content {
+    flex: 1;
+    transition: margin-left 0.25s ease-in-out, width 0.25s ease-in-out;
+}
+
+#sidebar {
+    width: 80px;
+    min-width: 80px;
+    transition: all .25s ease-in-out;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+#sidebar.expand {
+    width: 230px;
+    min-width: 230px;
+}
+
+.toggle-btn {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    padding: 1rem 1.6rem;
+    position: relative;
+  }
+
+.sidebar-logo {
+    margin: auto 0;
+}
+
+.sidebar-logo a {
+    color: #111111;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) .sidebar-nav,
+#sidebar:not(.expand) a.sidebar-link span {
+  display: none;
+}
+
+.sidebar-nav {
+    padding: 2rem 0rem;
+    flex: 1 1 auto;
+    overflow-y: auto; /* Enable vertical scroll */
+    padding-bottom: 1rem; /* Add padding to the bottom */
+}
+
+.sidebar-footer {
+    margin-bottom: 1rem; 
+}
+
+a.sidebar-link {
+  padding:.625rem 1.625rem;;
+  color: #111111;
+  display: block;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-link i, .sidebar-link img {
+  margin-right: 0.75rem;
+}
+
+a.sidebar-link:hover {
+  background-color: rgb(179, 214, 249);
+  border-left: 3px solid #3b7ddd;
+}
+
+.sidebar-item {
+    position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+  position: absolute;
+  top: 0;
+  left: 70px;
+  background-color: #0e2238;
+  padding: 0;
+  min-width: 15rem;
+  display: none;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+  display: block;
+  max-height: 15em;
+  width: 100%;
+  opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+  border: solid;
+  border-width: 0 .075rem .075rem 0;
+  content: "";
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.4rem;
+  transform: rotate(-135deg);
+  transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+  transform: rotate(45deg);
+  transition: all .2s ease-out;
+}
+
+.navbar-brand img {
+    margin-left: 1em;
+}
+
+/* Media Queries */
+/* // No media query necessary for xs breakpoint as it's effectively `@media (min-width: 0) { ... }` */
+@include media-breakpoint-up(sm) { ... }
+
+@media (max-width: 576px) {
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        /* height: 100vh; */
+        width: 80px;
+        overflow-x: hidden;
+        transition: 0.25s;
+        z-index: 1001;
+        padding-top: 2rem;  /* incrase space to sidebar links */
+    }
+
+    #sidebar.expand {
+        width: 230px;
+        z-index: 1001;  /* incrase z-index to show sidebar on top */
+    }
+
+    #sidebar:not(.expand) .sidebar-nav,
+    #sidebar:not(.expand) .sidebar-footer {
+        display: none;
+      }
+
+    .sidebar-nav {
+        align-items: flex-start;
+        padding: 2rem 0rem;
+        padding-bottom: 1rem;
+        overflow-y: auto;
+        list-style: none;
+    }
+
+    .toggle-btn {
+        position: fixed;
+        top: 0rem;
+        left:0.2rem;
+        z-index: 1002;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .content {
+        position: relative;
+        height: 100vh;
+        left: 80px;
+    }
+    .navbar {
+        display: none;
+    }
+
+}
+
+/* askme style  */
+.sidebar-btn {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 0rem;
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    padding: 1rem;
+}
+
+#sidebar:not(.expand) .sidebar-btn {
+    display: none;
+}
+
+.content-child {
+    height: calc(100vh - 60px);
+    overflow-y: auto; /* Ensure it scrolls if content overflows */
+}
+
+
+.chat-container {
+    padding: 1rem 0.5rem;
+    position: relative;
+    overflow-y: auto;
+    height: calc(100vh - 140px); /* leave space for input */
+    transition: left 0.25s ease-in-out, width 0.25s ease-in-out;
+}
+
+.chat-message {
+    margin: 10px 0;
+}
+
+.user-message-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-message {
+    text-align: left;
+    background-color: #e0f7fa;;
+    max-width: 60%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.assistant-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.assistant-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.assistant-message .message-content {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.input-container {
+    position: absolute;
+    z-index: 500;
+    bottom: 1;
+    background-color: #fff;
+    margin-right: 1rem;
+    padding: 1.5rem;
+    /* border-top: 1px solid #ddd; */
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;    
+    transition: left 0.25s ease-in-out, width 0.25s ease-in-out;
+}
+
+
+/* Additional styling to ensure consistent heights across send btn and input field */
+.input-group .form-control,
+.input-group .input-group-text,
+.input-group .send_btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+:root {
+    --sidebar-width-expanded: 230px;
+    --sidebar-width-collapsed: 80px;
+}
+
+@media (min-width: 576px) {
+    .input-container {
+      width: calc(100% - var(--sidebar-width-collapsed) - 2rem);
+      left: calc(var(--sidebar-width-collapsed));
+    }
+  
+    #sidebar.expand + .content .input-container {
+      width: calc(100% - var(--sidebar-width-expanded) - 2rem);
+      left: calc(var(--sidebar-width-expanded) );
+    }
+}
+  
+@media (max-width: 576px) {
+.input-container {
+    width: 100% - 90px;
+    padding-left: 2.5rem ;
+}
+}
